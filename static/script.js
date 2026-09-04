@@ -15,8 +15,8 @@ form.addEventListener("submit", async function (event) {
     const recipient = document.getElementById("recipient").value.trim();
     const emailType = document.getElementById("email-type").value;
     const tone = document.getElementById("tone").value;
+    const length = document.getElementById("length").value;
     const purpose = document.getElementById("purpose").value.trim();
-
     generateButton.disabled = true;
     generateButton.textContent = "Generating...";
 
@@ -30,6 +30,7 @@ form.addEventListener("submit", async function (event) {
                 recipient: recipient,
                 email_type: emailType,
                 tone: tone,
+                length: length,
                 purpose: purpose
             })
         });

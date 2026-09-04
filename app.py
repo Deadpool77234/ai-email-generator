@@ -17,6 +17,7 @@ def generate():
     email_type = data.get("email_type", "").strip()
     tone = data.get("tone", "").strip()
     purpose = data.get("purpose", "").strip()
+    length = data.get("length", "Standard").strip()
 
     # Validate input
     if not recipient:
@@ -40,6 +41,7 @@ def generate():
             recipient,
             email_type,
             tone,
+            length,
             purpose
         )
 
