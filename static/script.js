@@ -41,7 +41,9 @@ form.addEventListener("submit", async function (event) {
         }
 
         emailOutput.textContent = data.email;
-        resultBox.style.display = "block";
+resultBox.style.display = "block";
+
+saveHistory(data.email);
 
     } catch (error) {
         errorBox.textContent = error.message;
@@ -73,3 +75,78 @@ copyButton.addEventListener("click", async function () {
         console.error("Copy failed:", error);
     }
 });
+
+const historyList = document.getElementById("history-list");
+const clearHistoryButton = document.getElementById("clear-history");
+
+let emailHistory = JSON.parse(
+    localStorage.getItem("emailHistory") || "[]"
+);
+
+function saveHistory(email) {
+    emailHistory.unshift({
+        email: email,
+        date: new Date().toLocaleString()
+    });
+
+    // Keep the latest 10 emails
+    emailHistory = emailHistory.slice(0, 10);
+
+    localStorage.setItem(
+        "emailHistory",
+        JSON.stringify(emailHistory)
+    );
+
+    displayHistory();
+}
+
+function displayHistory() {
+    if (emailHistory.length === 0) {
+        historyList.innerHTML =
+            '<p class="empty-history">No generated emails yet.</p>';
+        return;
+    }
+
+    historyList.innerHTML = "";
+
+    emailHistory.forEach((item, index) => {
+        const historyItem = document.createElement("div");
+
+        historyItem.className = "history-item";
+
+        historyItem.innerHTML = `
+            <div>
+                <span class="history-number">#${index + 1}</span>
+                <span class="history-date">${item.date}</span>
+            </div>
+
+            <p>${item.email.substring(0, 100)}...</p>
+
+            <button type="button" onclick="restoreEmail(${index})">
+                Restore
+            </button>
+        `;
+
+        historyList.appendChild(historyItem);
+    });
+}
+
+function restoreEmail(index) {
+    emailOutput.textContent = emailHistory[index].email;
+    resultBox.style.display = "block";
+
+    window.scrollTo({
+        top: resultBox.offsetTop,
+        behavior: "smooth"
+    });
+}
+
+clearHistoryButton.addEventListener("click", function () {
+    emailHistory = [];
+
+    localStorage.removeItem("emailHistory");
+
+    displayHistory();
+});
+
+displayHistory();
