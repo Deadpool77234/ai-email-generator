@@ -1,0 +1,562 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #070a0d;
+    --panel: #0d1217;
+    --panel-light: #111820;
+    --border: #1d2933;
+
+    --text: #e6edf3;
+    --muted: #7d8b96;
+
+    --accent: #35f2a3;
+    --accent-dark: #19b878;
+    --cyan: #38d9ff;
+
+    --danger: #ff5c72;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(53, 242, 163, 0.07),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 85%,
+            rgba(56, 217, 255, 0.05),
+            transparent 25%
+        ),
+        var(--bg);
+
+    padding: 50px 20px;
+
+    position: relative;
+}
+
+/* Technical grid */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px
+        );
+
+    background-size: 40px 40px;
+
+    pointer-events: none;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+    );
+}
+
+/* Main */
+
+.container {
+    width: 100%;
+    max-width: 900px;
+
+    margin: auto;
+
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+
+.card {
+    background: rgba(13, 18, 23, 0.96);
+
+    border: 1px solid var(--border);
+
+    padding: 42px;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.55);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+/* Accent line */
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--accent),
+        var(--cyan),
+        transparent
+    );
+
+    animation: scan 4s linear infinite;
+}
+
+@keyframes scan {
+    0% {
+        transform: translateX(-30%);
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(30%);
+        opacity: 0.3;
+    }
+}
+
+/* Header section */
+
+h1 {
+    font-family: Consolas, "Courier New", monospace;
+
+    font-size: clamp(30px, 5vw, 46px);
+
+    letter-spacing: -2px;
+
+    color: var(--text);
+
+    margin-bottom: 10px;
+}
+
+h1::before {
+    content: "> ";
+
+    color: var(--accent);
+}
+
+.subtitle {
+    color: var(--muted);
+
+    font-family: Consolas, "Courier New", monospace;
+
+    font-size: 13px;
+
+    margin-bottom: 30px;
+}
+
+/* Status */
+
+.subtitle::after {
+    content: "  ● AI ENGINE ONLINE";
+
+    color: var(--accent);
+
+    margin-left: 10px;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 0.45;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Form */
+
+label {
+    display: block;
+
+    color: #aab6bf;
+
+    font-family: Consolas, "Courier New", monospace;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 8px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    background: #090d11;
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-radius: 4px;
+
+    padding: 14px 15px;
+
+    margin-bottom: 22px;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: #30404c;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    background: #0b1116;
+
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 0 1px rgba(53, 242, 163, 0.12),
+        0 0 20px rgba(53, 242, 163, 0.05);
+}
+
+textarea {
+    min-height: 150px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+/* Select */
+
+select {
+    appearance: none;
+
+    background-image:
+        linear-gradient(45deg, transparent 50%, #71808b 50%),
+        linear-gradient(135deg, #71808b 50%, transparent 50%);
+
+    background-position:
+        calc(100% - 18px) 50%,
+        calc(100% - 13px) 50%;
+
+    background-size:
+        5px 5px,
+        5px 5px;
+
+    background-repeat: no-repeat;
+}
+
+/* Generate */
+
+#generate-btn {
+    width: 100%;
+
+    padding: 15px;
+
+    border: 1px solid var(--accent);
+
+    border-radius: 4px;
+
+    background: transparent;
+
+    color: var(--accent);
+
+    font-family: Consolas, "Courier New", monospace;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+#generate-btn::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: var(--accent);
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: transform 0.25s ease;
+
+    z-index: -1;
+}
+
+#generate-btn:hover {
+    color: #06100b;
+
+    box-shadow:
+        0 0 25px rgba(53, 242, 163, 0.15);
+}
+
+#generate-btn:hover::before {
+    transform: scaleX(1);
+}
+
+#generate-btn:active {
+    transform: translateY(1px);
+}
+
+#generate-btn:disabled {
+    opacity: 0.5;
+
+    cursor: wait;
+}
+
+/* Error */
+
+#error {
+    color: var(--danger);
+
+    font-family: Consolas, "Courier New", monospace;
+
+    font-size: 12px;
+
+    margin-top: 15px;
+
+    padding: 10px;
+
+    border-left: 2px solid var(--danger);
+
+    background: rgba(255, 92, 114, 0.04);
+}
+
+/* Result */
+
+.result {
+    display: none;
+
+    margin-top: 35px;
+
+    padding-top: 28px;
+
+    border-top: 1px solid var(--border);
+
+    animation: resultIn 0.35s ease;
+}
+
+@keyframes resultIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 14px;
+}
+
+.result-header h2 {
+    font-family: Consolas, "Courier New", monospace;
+
+    font-size: 13px;
+
+    color: var(--accent);
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+.result-header h2::before {
+    content: "OUTPUT // ";
+
+    color: #56636d;
+}
+
+/* Copy */
+
+#copy-btn {
+    background: #111820;
+
+    border: 1px solid var(--border);
+
+    color: #aebbc4;
+
+    padding: 8px 15px;
+
+    border-radius: 4px;
+
+    font-family: Consolas, "Courier New", monospace;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background 0.2s ease;
+}
+
+#copy-btn:hover {
+    border-color: var(--accent);
+
+    color: var(--accent);
+
+    background: #0d1714;
+}
+
+/* Generated email */
+
+#email-output {
+    display: block;
+
+    white-space: pre-wrap;
+
+    min-height: 180px;
+
+    padding: 22px;
+
+    background: #080c10;
+
+    border: 1px solid var(--border);
+
+    border-left: 2px solid var(--accent);
+
+    border-radius: 3px;
+
+    color: #c8d2d9;
+
+    font-family: Consolas, "Courier New", monospace;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+    box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Small system footer */
+
+.card::after {
+    content: "AI EMAIL GENERATOR  //  LOCAL CLIENT  //  GEMINI ENGINE";
+
+    display: block;
+
+    margin-top: 30px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #151d24;
+
+    color: #46525c;
+
+    font-family: Consolas, "Courier New", monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+
+    body {
+        padding: 20px 10px;
+    }
+
+    .card {
+        padding: 28px 20px;
+    }
+
+    h1 {
+        font-size: 31px;
+    }
+
+    .subtitle::after {
+        display: block;
+
+        margin-left: 0;
+
+        margin-top: 8px;
+    }
+
+    .result-header {
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+    #email-output {
+        font-size: 12px;
+    }
+}

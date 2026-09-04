@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Email Generator</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1>AI Email Generator</h1>
+
+            <p class="subtitle">
+                Create professional emails in seconds using AI.
+            </p>
+
+            <form id="email-form">
+
+                <label for="recipient">Recipient</label>
+
+                <input
+                    type="text"
+                    id="recipient"
+                    placeholder="e.g. Professor, HR Manager, Client"
+                >
+
+                <label for="email-type">Email Type</label>
+
+                <select id="email-type">
+                    <option value="">Select email type</option>
+                    <option value="Leave Application">Leave Application</option>
+                    <option value="Job Application">Job Application</option>
+                    <option value="Follow-up">Follow-up</option>
+                    <option value="Complaint">Complaint</option>
+                    <option value="Thank You">Thank You</option>
+                    <option value="Meeting Request">Meeting Request</option>
+                    <option value="General">General</option>
+                </select>
+
+                <label for="tone">Tone</label>
+
+                <select id="tone">
+                    <option value="">Select tone</option>
+                    <option value="Formal">Formal</option>
+                    <option value="Professional">Professional</option>
+                    <option value="Friendly">Friendly</option>
+                </select>
+
+                <label for="purpose">Purpose of the Email</label>
+
+                <textarea
+                    id="purpose"
+                    rows="6"
+                    placeholder="Describe what you want to say..."
+                ></textarea>
+
+                <button type="submit" id="generate-btn">
+                    Generate Email
+                </button>
+
+            </form>
+
+            <div id="error"></div>
+
+            <div id="result" class="result">
+
+                <div class="result-header">
+                    <h2>Generated Email</h2>
+
+                    <button type="button" id="copy-btn">
+                        Copy
+                    </button>
+                </div>
+
+                <pre id="email-output"></pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
